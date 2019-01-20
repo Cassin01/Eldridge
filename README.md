@@ -1,2 +1,2 @@
-# RustEldridge
+# Eldridge
 The Eldridge programming language
