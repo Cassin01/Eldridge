@@ -1,0 +1,6 @@
+[package]
+name = "parcer"
+version = "0.1.0"
+authors = ["Cassin01 <koyojb@gmail.com>"]
+
+[dependencies]
