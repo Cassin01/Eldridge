@@ -4,7 +4,6 @@ pub fn implement(tree: make_list::Tree) {
     make_list::Tree::read(tree);
 }
 
-
 impl make_list::Tree {
     fn out(mut stream: Vec<String>) -> Vec<String> {
         if let Some(x) = stream.pop() {
@@ -42,15 +41,17 @@ impl make_list::Tree {
         loop {
             match tree {
                 make_list::Tree::Nil => break,
-                make_list::Tree::Cons(x, y) => {
-                    let object = do_(x);
-                    match object.as_ref() {
-                        "1"   => stream.push(object),
-                        "2"   => stream.push(object),
-                        "3"   => stream.push(object),
-                        "add" => stream = make_list::Tree::add(stream),
-                        "out" => stream = make_list::Tree::out(stream),
-                        _     => (),
+                make_list::Tree::Cons(object, y) => {
+                    match object.id.as_ref() {
+                        "val" => stream.push(object.name),
+                        "fn" => {
+                            match object.name.as_ref() {
+                                "add" => stream = make_list::Tree::add(stream),
+                                "out" => stream = make_list::Tree::out(stream),
+                                _     => (),
+                            }
+                        },
+                        _                   => (),
                     }
                     tree = make_list::Tree::extract_from_box(y);
                 },
@@ -66,26 +67,5 @@ impl make_list::Tree {
                     y
                 },
         }
-    }
-}
-
-
-fn do_(object: make_list::Object) -> String {
-    if object.id == String::from("fn") {
-        match object.name.as_ref() {
-            "main" => return String::from("main"),
-            "out"  => return String::from("out"),
-            "add"  => return String::from("add"),
-            _      => return String::from("none"),
-        }
-    } else if object.id == String::from("val") {
-        match object.name.as_ref() {
-            "1"    => return  String::from("1"),
-            "2"    => return  String::from("2"),
-            "3"    => return  String::from("3"),
-            _      => return  String::from("non val"),
-        }
-    } else {
-        String::from("not either fn nor val")
     }
 }
