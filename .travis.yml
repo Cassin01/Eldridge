@@ -28,6 +28,9 @@ addons:
 codecov:
   token: 86ec3d40-9676-4936-b0e4-9e2f23ec2e4f
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t uuid-repo-token
+
 after_success: |
   wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
   tar xzf master.tar.gz &&
