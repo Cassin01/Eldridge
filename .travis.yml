@@ -13,3 +13,6 @@ matrix:
 script:
   - cargo build --verbose --all
   - cargo test --verbose --all
+
+repo_token: VDm4zSOaeNlATYux43bfEumzFoW1TAX87
+gem 'coveralls', require: false
