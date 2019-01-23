@@ -48,7 +48,7 @@ fn main() {
 
     // スタックをポップしてB木を作る
     let tree : make_list::Tree = tree(stack);
-    // println!("B tree: {:?}", tree);
+    println!("B tree: {:?}", tree);
 
     implement::implement(tree);
 }

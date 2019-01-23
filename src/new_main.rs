@@ -1,4 +1,5 @@
 mod make_list;
+mod implement;
 use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -14,36 +15,6 @@ fn read_code2() -> String {
     }
     texts
 }
-
-/*
-use std::env;
-use std::fs::File;
-use std::io::prelude::*;
-
-fn read_code() -> String {
-    let args: Vec<String> = env::args().collect();
-
-    let filename = &args[1];
-
-    // {}というファイルの中
-    println!("In file {}", filename);
-    let mut f = File::open(filename).expect("file not found");
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-    .expect("something went wrong reading the file");
-
-    // テキストは\n{}です
-    //println!("With text:\n{}", contents);
-
-
-    //read_word で単語が別れているかを確認
-    //println!("{:?}", read_word(contents));
-
-    // 末尾の改行文字を削る
-    contents.trim_right().to_owned()
-}
-*/
 
 fn is_space(word: &String) -> bool {
     match word.as_str() {
@@ -98,15 +69,17 @@ fn read_texts(texts: String) -> make_list::Tree {
             }
         } else {
             string.push(c);
-            // println!("{:?}", string);
         }
     }
-    tree = tree.cons(
-        make_list::Object {
-            id: String::from("fn"),
-            name: string.clone(),
-        }
-    );
+    let name = string.clone();
+    if !is_space(&name) {
+        tree = tree.cons(
+            make_list::Object {
+                id: String::from("fn"),
+                name: string.clone(),
+            }
+        );
+    }
     string.clear();
     tree
 }
@@ -115,5 +88,8 @@ fn read_texts(texts: String) -> make_list::Tree {
 fn main() {
     let i = read_code2();
     //println!("{}", i);
-    println!("{:?}", read_texts(i));
+    let tree = read_texts(i);
+    println!("{:?}", tree);
+
+    implement::implement(tree);
 }

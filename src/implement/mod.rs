@@ -44,7 +44,8 @@ impl make_list::Tree {
                 make_list::Tree::Cons(object, y) => {
                     match object.id.as_ref() {
                         "val" => stream.push(object.name),
-                        "fn" => {
+                        "num" => stream.push(object.name),
+                        "fn"  => {
                             match object.name.as_ref() {
                                 "add" => stream = make_list::Tree::add(stream),
                                 "out" => stream = make_list::Tree::out(stream),
