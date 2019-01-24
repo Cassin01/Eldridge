@@ -4,7 +4,7 @@ use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-fn read_code2() -> String {
+fn read_code() -> String {
     let args: Vec<String> = env::args().collect();
     let filename = &args[1];
     let file = File::open(filename).expect("file not found");
@@ -86,8 +86,8 @@ fn read_texts(texts: String) -> make_list::Tree {
 
 
 fn main() {
-    let i = read_code2();
-    //println!("{}", i);
+    let i = read_code();
+
     let tree = read_texts(i);
     println!("{:?}", tree);
 
